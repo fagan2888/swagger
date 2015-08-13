@@ -1,0 +1,63 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "0.1.0"
+  title: Census API
+host: api.census.gov
+basePath: /data
+schemes:
+ - http
+produces:
+ - application/json
+# Describe your paths here
+paths:
+  # This is a path endpoint. Change it.
+  /{year}/acs5/profile:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        Gets 2 item arrays corresponding to each data record matching the specification
+      # This is array of GET operation parameters:
+      parameters:
+        - name: year
+          in: path
+          description: the year for the data 
+          required: true
+          type: integer
+          format: int32
+        - name: get
+          in: query
+          description: the variable for which to lookup value
+          type: string
+          required: true
+        - name: for
+          in: query
+          description: the filter condition.  e.g. To restrict records to those in a state, use `state:statecode` where state code 
+          type: string
+          required: true
+        - name: key
+          in: query
+          description: authorization key for using the API
+          type: string
+          required: true
+          pattern: "[A-Za-z0-9]{32}"
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: items
+            type: array
+            items:
+              title: item
+              type: string
+
+                  
